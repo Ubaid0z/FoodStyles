@@ -1,17 +1,39 @@
 import React, {useState} from 'react';
-import {View, Dimensions, StyleSheet, Image, TextInput} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {Input, Button, ReactText} from '../../elements';
 import dictionary from '../../../I18/dictionary.json';
-import {LogoIcon} from '../../../constants/ImageConstants';
 import {darkOrange, lightOrange} from '../../theme/colors';
 import {generalTheme} from '../../theme/generalTheme';
+import {loginAPi} from '../../../services/services';
+import {useDispatch, useSelector} from 'react-redux';
+import {hideLoading, showLoading} from '../../../store/slices/LoadingSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const loading = useSelector(state => state.LoadingSlice.loading);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const login = () => {
+    dispatch(showLoading());
+    loginAPi(email, password)
+      .then(data => {
+        AsyncStorage.setItem(
+          'token',
+          JSON.stringify(data.data.loginWithEmail.accessToken),
+        );
+        navigation.navigate('Home');
+        dispatch(hideLoading());
+      })
+      .catch(e => {
+        console.log('error');
+      });
+  };
   return (
     <LinearGradient
       colors={[lightOrange, darkOrange]}
@@ -35,7 +57,8 @@ export const Login = () => {
       <Button
         customTextStyle={[generalTheme.bold, generalTheme.uppercase]}
         title={dictionary.Login}
-        onPress={() => {}}
+        disabled={email === '' || password === ''}
+        onPress={login}
       />
       <ReactText title={dictionary.ForgotMyPassword} />
     </LinearGradient>

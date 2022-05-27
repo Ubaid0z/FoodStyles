@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   View,
   Dimensions,
@@ -13,12 +13,29 @@ import {Input, Button, ListRow, Header} from '../../elements';
 import {LogoIcon} from '../../../constants/ImageConstants';
 import {darkOrange, lightOrange, lightWhite} from '../../theme/colors';
 import {screenWidth} from '../../theme/helpers';
+import {useDispatch, useSelector} from "react-redux";
+import {hideLoading, showLoading} from "../../../store/slices/LoadingSlice";
+import {cardDataGet, loginAPi} from "../../../services/services";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Home = () => {
   const [listData, setListData] = useState([
-    {id: '1', title: 'First Food Style'},
-    {id: '2', title: 'Vegan for me'},
   ]);
+    const dispatch = useDispatch()
+  const getCardData = () =>{
+      dispatch(showLoading())
+      cardDataGet().then(data=>{
+        console.log("Card",data.data.cards)
+          setListData(data.data.cards)
+          dispatch(hideLoading())
+      }).catch(e =>{
+          console.log("Cate")
+      })
+  }
+    const loading = useSelector(state => state.LoadingSlice.loading);
+  useEffect(()=>{
+    getCardData ()
+  },[])
 
   return (
     <View style={{flex: 1}}>
@@ -32,7 +49,7 @@ export const Home = () => {
           data={listData}
           extraData={listData}
           renderItem={({item}) => (
-            <ListRow title={item.title} onPress={() => {}} />
+            <ListRow title={item.name} onPress={() => {}} />
           )}
           keyExtractor={(value, index) => index.toString()}
         />

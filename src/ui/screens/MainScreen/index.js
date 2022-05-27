@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   Pressable,
+  TouchableOpacity,
   Text,
 } from 'react-native';
 import {
@@ -28,7 +29,7 @@ import {
   statusCodes,
 } from 'react-native-google-signin';
 
-
+import {useNavigation} from '@react-navigation/native';
 
 var fbToken = '';
 var username = '';
@@ -37,19 +38,16 @@ export const MainScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
   const [userInfo, setUserInfo] = useState(null);
   const [gettingLoginStatus, setGettingLoginStatus] = useState(true);
 
   const [loading, setLoading] = useState(false);
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     // Initial configuration
     GoogleSignin.configure({
-      // Mandatory method to call before calling signIn()
-      // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-      // Replace with your webClientId
-      // Generated from Firebase console
       scopes: [
         'https://www.googleapis.com/auth/user.birthday.read',
         'https://www.googleapis.com/auth/userinfo.profile',
@@ -58,7 +56,6 @@ export const MainScreen = () => {
       webClientId:
         '96259814720-adkvpqpgiiqqgrim2naund3dgkruk2o6.apps.googleusercontent.com',
     });
-    // Check if user is already signed in
     _isSignedIn();
   }, []);
 
@@ -94,7 +91,6 @@ export const MainScreen = () => {
       username = 'Welcome ' + result.name;
       // token = ('User Token: ' + result.id);
       profilePic = result.picture.data.url;
-
     }
   };
 
@@ -105,7 +101,7 @@ export const MainScreen = () => {
       'user_friends',
     ])
       .then(
-        async (result) => {
+        async result => {
           console.log(result);
           if (result.isCancelled) {
             console.log('Login cancelled');
@@ -115,7 +111,7 @@ export const MainScreen = () => {
                 result.grantedPermissions.toString(),
             );
 
-            await AccessToken.getCurrentAccessToken().then((data) => {
+            await AccessToken.getCurrentAccessToken().then(data => {
               fbToken = data;
               console.log('Token===', JSON.stringify(fbToken));
             });
@@ -138,7 +134,7 @@ export const MainScreen = () => {
         },
         LoginManager.getLoginBehavior(),
       )
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -205,8 +201,6 @@ export const MainScreen = () => {
     setGettingLoginStatus(false);
   };
 
- 
-
   const onLogout = () => {
     //Clear the state after logout
 
@@ -251,12 +245,13 @@ export const MainScreen = () => {
         />
         <Button
           title={dictionary.SignUpEmail}
-          onPress={() => {}}
+          onPress={() => navigation.navigate('Signup')}
           customStyle={styles.socialLoginButton}
           customTextStyle={styles.socialTextStyle}
         />
-
-        <ReactText title={dictionary.LoginWithEmail} />
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <ReactText title={dictionary.LoginWithEmail} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.termsAndPolicy}>
