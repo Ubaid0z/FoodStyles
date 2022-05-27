@@ -4,10 +4,12 @@ import {green} from '../../theme/colors';
 import {screenWidth, screenHeight} from '../../theme/helpers';
 
 export const Button = props => {
-  const {title, onPress} = props;
+  const {title, onPress, customStyle, customTextStyle} = props;
   return (
-    <TouchableOpacity onPress={onPress} style={styles.buttonStyle}>
-      <Text style={styles.textColor}> {title} </Text>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.buttonStyle, customStyle]}>
+      <Text style={[styles.textColor, customTextStyle]}> {title} </Text>
     </TouchableOpacity>
   );
 };
@@ -20,6 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 10,
   },
   textColor: {
     color: '#fff',

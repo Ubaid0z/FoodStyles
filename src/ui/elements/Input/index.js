@@ -1,22 +1,33 @@
 import React, {useRef} from 'react';
-import {View, TextInput} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 import ReactText from '../Text';
-import {InputStyles} from './styles';
+import {screenWidth, screenHeight} from '../../theme/helpers';
 
 export const Input = props => {
-  const {title, value, onChangeText, maxLength, secureTextEntry} = props;
+  const {
+    title,
+    value,
+    onChangeText,
+    maxLength,
+    secureTextEntry,
+    customStyle,
+    customLabelStyle,
+  } = props;
   const textInputRef = useRef(null);
 
   return (
     <>
-      <ReactText title={title} />
+      <ReactText
+        title={title}
+        style={[InputStyles.labelStyle, customLabelStyle]}
+      />
       <TextInput
         {...props}
         autoCapitalize={'none'}
         testID="textinput"
-        style={[InputStyles.textInput, InputStyles.inputBorderWidth1]}
+        style={[InputStyles.textInput, customStyle]}
         ref={textInputRef}
         onChangeText={onChangeText}
         value={value}
@@ -25,17 +36,9 @@ export const Input = props => {
         secureTextEntry={secureTextEntry}
         multiline={false}
       />
-      {/* {renderIcon()} */}
     </>
   );
 };
-
-// Input.propTypes = {
-//   title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-//   textAlign: PropTypes.oneOfType([PropTypes.string]),
-//   secureTextEntry: PropTypes.oneOfType([PropTypes.boolean]),
-//   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-// };
 
 Input.defaultProps = {
   title: '',
@@ -43,3 +46,19 @@ Input.defaultProps = {
   value: '',
   maxLength: 20,
 };
+
+const InputStyles = StyleSheet.create({
+  textInput: {
+    height: 48,
+    borderRadius: 8,
+    paddingTop: 0,
+    paddingBottom: 2,
+    fontSize: 14,
+    width: screenWidth / 1.3,
+    backgroundColor: '#fff',
+  },
+  labelStyle: {
+    alignSelf: 'flex-start',
+    width: '80%',
+  },
+});

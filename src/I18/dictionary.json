@@ -10,5 +10,17 @@
   "ForgotPassword": ["Forgot Password"],
   "SignInText": ["Sign in to be able to save your preference and settings"],
   "LoginWithEmail": ["Log in with Email"],
-  "ForgotMyPassword": ["Forgot my password"]
+  "ForgotMyPassword": ["Forgot my password"],
+  "SignInApple": ["Sign in with Apple"],
+  "SignInFacebook": ["Sign in with Facebook"],
+  "SignInGoogle": ["Sign in with Google"],
+  "BySigningIn": ["By signing in you accept the"],
+  "GeneralTerms": ["General Terms"],
+  "And": ["and"],
+  "PrivacyPolicy": ["Privacy Policy"],
+  "FoodStyle": ["Food Style"],
+  "Profile": ["Profile"],
+  "NameShown": ["Name shown on your shared card"],
+  "Logout": ["Logout"],
+  "Done": ["Done"]
 }

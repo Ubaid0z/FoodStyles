@@ -12,10 +12,6 @@ export const ReactText = props => {
     </>
   );
 };
-ReactText.propTypes = {
-  title: PropTypes.string,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-};
 
 ReactText.defaultProps = {
   title: '',
@@ -28,5 +24,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     lineHeight: 28,
+    color: '#fff',
   },
 });
