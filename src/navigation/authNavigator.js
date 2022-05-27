@@ -8,18 +8,13 @@ export const AuthNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={'Home'}
-        component={Home}
-        options={{headerShown: false, animation: 'slide_from_right'}}
-      />
-      <Stack.Screen
-        name={'Profile'}
-        component={Profile}
-        options={{headerShown: false, animation: 'slide_from_right'}}
-      />
-      <Stack.Screen
         name={'MainScreen'}
         component={MainScreen}
+        options={{headerShown: false, animation: 'slide_from_right'}}
+      />
+      <Stack.Screen
+        name={'Login'}
+        component={Login}
         options={{headerShown: false, animation: 'slide_from_right'}}
       />
       <Stack.Screen
@@ -28,8 +23,13 @@ export const AuthNavigator = () => {
         options={{headerShown: false, animation: 'slide_from_right'}}
       />
       <Stack.Screen
-        name={'Login'}
-        component={Login}
+        name={'Home'}
+        component={Home}
+        options={{headerShown: false, animation: 'slide_from_right'}}
+      />
+      <Stack.Screen
+        name={'Profile'}
+        component={Profile}
         options={{headerShown: false, animation: 'slide_from_right'}}
       />
     </Stack.Navigator>
