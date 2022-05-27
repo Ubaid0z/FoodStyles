@@ -1,0 +1,14 @@
+{
+  "SignUpEmail": ["Sign up with Email"],
+  "YourName": ["Your name"],
+  "Email": ["Email"],
+  "MinPassword": ["Password (min 6 characters)"],
+  "SignUp": ["Sign Up"],
+  "Login": ["Log in"],
+  "Password": ["Password"],
+  "LoginErrorMessage": ["Email or Password is incorrect"],
+  "ForgotPassword": ["Forgot Password"],
+  "SignInText": ["Sign in to be able to save your preference and settings"],
+  "LoginWithEmail": ["Log in with Email"],
+  "ForgotMyPassword": ["Forgot my password"]
+}
